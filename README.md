@@ -2,7 +2,7 @@
 
 A minimal, ready-to-use template for creating Hytale plugins with modern build tools and automated testing.
 
-> **✨ Builds immediately without any changes!** Clone and run `./gradlew shadowJar` to get a working plugin JAR.
+> **✨ Builds immediately without any changes!** Clone and run `./gradlew build` to get a working plugin JAR.
 
 ## Features
 
@@ -73,13 +73,15 @@ The template works out-of-the-box:
 
 ```bash
 # Windows
-gradlew.bat shadowJar
+gradlew.bat build
 
 # Linux/Mac
-./gradlew shadowJar
+./gradlew build
 ```
 
 Your plugin JAR will be in: `build/libs/TemplatePlugin-1.0.0.jar`
+
+**Automatic deployment:** If you've configured `serverDir` in `gradle.properties`, the plugin JAR will be automatically copied to your server's `plugins/` folder after the build.
 
 ### 3. Customize Your Plugin (Optional)
 
@@ -92,9 +94,18 @@ rootProject.name = "your-plugin-name"
 
 **`gradle.properties`:**
 ```properties
+# Project Information
 pluginGroup=com.yourname
 pluginVersion=1.0.0
 pluginDescription=Your plugin description
+
+# Gradle Configuration
+org.gradle.parallel=true
+org.gradle.caching=true
+org.gradle.daemon=true
+org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m
+
+# Server path to copy mod in server
 serverDir=C:/Path/To/Your/Server  # Path to your Hytale server (optional)
 ```
 
@@ -117,13 +128,15 @@ serverDir=C:/Path/To/Your/Server  # Path to your Hytale server (optional)
 
 ```bash
 # Windows
-gradlew.bat shadowJar
+gradlew.bat build
 
 # Linux/Mac
-./gradlew shadowJar
+./gradlew build
 ```
 
 Your plugin JAR will be in: `build/libs/YourPluginName-1.0.0.jar`
+
+**Automatic deployment:** If you've configured `serverDir` in `gradle.properties`, the plugin JAR will be automatically copied to your server's `plugins/` folder after the build.
 
 ### 5. Implement Your Plugin
 
@@ -195,11 +208,11 @@ TemplatePlugin/
 # Compile only
 ./gradlew compileJava
 
-# Build plugin JAR
-./gradlew shadowJar
+# Build plugin JAR (and automatically deploy if serverDir is configured)
+./gradlew build
 
 # Clean and rebuild
-./gradlew clean shadowJar
+./gradlew clean build
 ```
 
 **Automatic deployment:** If you've configured `serverDir` in `gradle.properties`, the plugin JAR will be automatically copied to your server's `plugins/` folder after each build.
@@ -249,7 +262,7 @@ dependencies {
 
 ### Configuring Server Testing
 
-**Run Hytale Server** - A Gradle plugin to download and run a Hytale server for development and testing purposes. The server files will be located in the `run/` directory of the project. Before starting the server it will compile (shadowJar task) and copy the plugin jar to the server's `plugins/` folder.
+**Run Hytale Server** - A Gradle plugin to download and run a Hytale server for development and testing purposes. The server files will be located in the `run/` directory of the project. Before starting the server it will compile (build task) and copy the plugin jar to the server's `plugins/` folder.
 
 **Usage:**
 
