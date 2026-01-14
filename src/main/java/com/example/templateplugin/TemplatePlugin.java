@@ -1,54 +1,36 @@
 package com.example.templateplugin;
 
-/**
- * Main plugin class.
- * 
- * TODO: Implement your plugin logic here.
- * 
- * @author YourName
- * @version 1.0.0
- */
-public class TemplatePlugin {
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
+import com.hypixel.hytale.server.core.plugin.JavaPlugin;
+import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
+import javax.annotation.Nonnull;
 
-    private static TemplatePlugin instance;
-    
-    /**
-     * Constructor - Called when plugin is loaded.
-     */
-    public TemplatePlugin() {
-        instance = this;
-        System.out.println("[TemplatePlugin] Plugin loaded!");
+/**
+ * Main entry point for the Basic Hytale Plugin.
+ * <p>
+ * This class extends {@link JavaPlugin} and handles the plugin's lifecycle
+ * events.
+ */
+public class TemplatePlugin extends JavaPlugin {
+
+    // Logger instance for this class, automatically named after the class.
+    private static final HytaleLogger logger = HytaleLogger.forEnclosingClass();
+
+    public TemplatePlugin(@Nonnull JavaPluginInit init) {
+        super(init);
     }
-    
+
     /**
-     * Called when plugin is enabled.
+     * Called when the plugin is enabled.
+     * Use this for initialization logic like registering commands or event
+     * listeners.
      */
-    public void onEnable() {
-        System.out.println("[TemplatePlugin] Plugin enabled!");
-        
-        // TODO: Initialize your plugin here
-        // - Load configuration
-        // - Register event listeners
-        // - Register commands
-        // - Start services
-    }
-    
-    /**
-     * Called when plugin is disabled.
-     */
-    public void onDisable() {
-        System.out.println("[TemplatePlugin] Plugin disabled!");
-        
-        // TODO: Cleanup your plugin here
-        // - Save data
-        // - Stop services
-        // - Close connections
-    }
-    
-    /**
-     * Get plugin instance.
-     */
-    public static TemplatePlugin getInstance() {
-        return instance;
+    @Override
+    protected void setup() {
+        super.setup();
+        logger.at(Level.INFO).log("=============================");
+        logger.at(Level.INFO).log("PEWOH MODS has been enabled!");
+        logger.at(Level.INFO).log("=============================");
     }
 }

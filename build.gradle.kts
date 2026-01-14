@@ -8,6 +8,8 @@ group = findProperty("pluginGroup") as String? ?: "com.example"
 version = findProperty("pluginVersion") as String? ?: "1.0.0"
 description = findProperty("pluginDescription") as String? ?: "A Hytale plugin template"
 
+val serverDir: String by project
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -15,7 +17,7 @@ repositories {
 
 dependencies {
     // Hytale Server API (provided by server at runtime)
-    compileOnly(files("libs/hytale-server.jar"))
+    compileOnly(files("libs/HytaleServer.jar"))
     
     // Common dependencies (will be bundled in JAR)
     implementation("com.google.code.gson:gson:2.10.1")
@@ -73,10 +75,17 @@ tasks {
     test {
         useJUnitPlatform()
     }
+
+    val copyJar by registering(Copy::class) {
+        from(shadowJar)
+        into("$serverDir/mods")
+    }
+
     
     // Make build depend on shadowJar
     build {
         dependsOn(shadowJar)
+        finalizedBy(copyJar)
     }
 }
 

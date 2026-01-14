@@ -37,9 +37,6 @@ bin/
 /nbdist/
 /.nb-gradle/
 
-# VS Code
-.vscode/
-
 # Mac OS
 .DS_Store
 
@@ -55,3 +52,6 @@ desktop.ini
 *.bak
 *.swp
 *~
+
+/libs/HytaleServer.jar
+/libs/cfr.jar
